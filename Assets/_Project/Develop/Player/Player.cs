@@ -1,7 +1,7 @@
 using UnityEngine;
 
-[RequireComponent(typeof(PlayerLauncher))]
+[RequireComponent(typeof(PlayerLauncher), typeof(PlayerCollisionHandler))]
 public class Player : MonoBehaviour
 {
-    
+
 }

@@ -6,8 +6,13 @@ public class PlayerLauncher : MonoBehaviour
     [SerializeField] private float _force;
     [SerializeField] private float _abortDistance;
 
+    [Space]
+
+    [SerializeField] private PlayerCollisionHandler _collisionHandler;
+
     public ReactiveProperty<bool> IsStretch = new ReactiveProperty<bool>();
 
+    private bool _canStretch;
     private Vector2 _startPosition;
     private Vector2 _endPosition;
 
@@ -19,11 +24,21 @@ public class PlayerLauncher : MonoBehaviour
         _rigidbody = GetComponent<Rigidbody2D>();
 
         IsStretch.Value = false;
+        _canStretch = true;
     }
 
     private void Start()
     {
+        _collisionHandler.OnSurfaceEnter += AllowStretch;
+        _collisionHandler.OnSurfaceExit += ProhibitStretch;
+
         _camera = Camera.main;
+    }
+
+    private void OnDestroy()
+    {
+        _collisionHandler.OnSurfaceEnter -= AllowStretch;
+        _collisionHandler.OnSurfaceExit -= ProhibitStretch;
     }
 
     private void Update()
@@ -44,6 +59,8 @@ public class PlayerLauncher : MonoBehaviour
 
     private void Stretch()
     {
+        if (_canStretch == false) return;
+
         _endPosition = _camera.ScreenToWorldPoint(Input.mousePosition);
 
         IsStretch.Value = StretchDistance > _abortDistance;
@@ -58,6 +75,16 @@ public class PlayerLauncher : MonoBehaviour
         }
 
         ResetStretch();
+    }
+
+    private void AllowStretch(Collision2D collision, Surface surface)
+    {
+        _canStretch = true;
+    }
+
+    private void ProhibitStretch(Collision2D collision, Surface surface)
+    {
+        _canStretch = false;
     }
 
     private void ResetStretch()
