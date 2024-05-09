@@ -36,7 +36,7 @@ public class PlayerMovement : MonoBehaviour
         _rigidbody.velocity = new Vector2(transform.right.x * _speed * delta, _rigidbody.velocity.y);
     }
 
-    private void TurnAround()
+    public void TurnAround()
     {
         Vector3 angles = transform.rotation.eulerAngles;
 
