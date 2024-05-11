@@ -1,51 +1,58 @@
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(Player), typeof(Rigidbody2D))]
 public class PlayerWallSliding : MonoBehaviour
 {
-    [SerializeField] private PlayerCollisionHandler _collisionHandler;
+    [SerializeField] private float _speed;
 
-    [SerializeField] private float _gravity;
-    private float _initialGravity;
+    private CollisionHandler _collisionHandler;
     private Rigidbody2D _rigidbody;    
 
     private void OnEnable()
     {
-        _collisionHandler.OnWallTouched += OnWallTouched;
-        _collisionHandler.OnGroundTouched += OnGroundTouched;
+        _collisionHandler.OnWallTouched += StartSliding;
+        _collisionHandler.OnWallExited += StopSliding;
     }
 
     private void OnDisable()
     {
-        _collisionHandler.OnWallTouched -= OnWallTouched;
-        _collisionHandler.OnGroundTouched -= OnGroundTouched;
+        _collisionHandler.OnWallTouched -= StartSliding;
+        _collisionHandler.OnWallExited -= StopSliding;
     }
 
     private void Awake()
     {
+        _collisionHandler = GetComponent<Player>().CollisionHandler;
         _rigidbody = GetComponent<Rigidbody2D>();
-        _initialGravity = _rigidbody.gravityScale;
+
+        IsSliding = false;
     }
 
-    private void Slide()
+    private void FixedUpdate()
     {
+        if (IsSliding)
+            Slide(Time.fixedDeltaTime);
+    }
+
+    public bool IsSliding { get; private set; }
+
+    private void Slide(float delta)
+    {
+        // Limit the velocity of the fall.
+        float y = Mathf.Clamp(_rigidbody.velocity.y, -_speed * delta, float.MaxValue); 
+        _rigidbody.velocity = new Vector2(_rigidbody.velocity.x, y);
+    }
+
+    private void StartSliding()
+    {
+        if (_collisionHandler.OnGround) return;
+
         _rigidbody.velocity = Vector2.zero;
-        _rigidbody.gravityScale = _gravity;
+        IsSliding = true;
     }
 
-    public void Breake()
+    public void StopSliding()
     {
-        _rigidbody.gravityScale = _initialGravity;
-    }
-
-    private void OnWallTouched(RaycastHit2D hit)
-    {
-        if (_collisionHandler.OnGound() == false)
-            Slide();
-    }
-
-    private void OnGroundTouched(RaycastHit2D hit)
-    {
-        Breake();
+        IsSliding = false;
     }
 }

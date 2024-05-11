@@ -1,28 +1,28 @@
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(Player), typeof(Rigidbody2D))]
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private float _speed;
 
-    [Space]
-
-    [SerializeField] private PlayerCollisionHandler _collisionHandler;
-    
+    private CollisionHandler _collisionHandler;
     private Rigidbody2D _rigidbody;
 
     private void OnEnable()
     {
         _collisionHandler.OnWallTouched += OnWallTouched;
+        _collisionHandler.OnGroundTouched += OnGroundTouched;
     }
 
     private void OnDisable()
     {
         _collisionHandler.OnWallTouched -= OnWallTouched;
+        _collisionHandler.OnGroundTouched -= OnGroundTouched;
     }
 
     private void Awake()
     {
+        _collisionHandler = GetComponent<Player>().CollisionHandler;
         _rigidbody = GetComponent<Rigidbody2D>();
     }
 
@@ -45,9 +45,15 @@ public class PlayerMovement : MonoBehaviour
         transform.rotation = Quaternion.Euler(angles);
     }
 
-    private void OnWallTouched(RaycastHit2D hit)
+    private void OnWallTouched()
     {
-        if (_collisionHandler.OnGound())
+        if (_collisionHandler.OnGround)
+            TurnAround();
+    }
+
+    private void OnGroundTouched()
+    {
+        if (_collisionHandler.IsTouchingWall)
             TurnAround();
     }
 }
