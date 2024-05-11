@@ -1,11 +1,14 @@
 using UnityEngine;
 
-[RequireComponent(typeof(Player), typeof(Rigidbody2D))]
+[RequireComponent(typeof(Rigidbody2D))]
 public class PlayerWallSliding : MonoBehaviour
 {
     [SerializeField] private float _speed;
 
-    private CollisionHandler _collisionHandler;
+    [Space]
+
+    [SerializeField] private CollisionHandler _collisionHandler;
+
     private Rigidbody2D _rigidbody;    
 
     private void OnEnable()
@@ -22,7 +25,6 @@ public class PlayerWallSliding : MonoBehaviour
 
     private void Awake()
     {
-        _collisionHandler = GetComponent<Player>().CollisionHandler;
         _rigidbody = GetComponent<Rigidbody2D>();
 
         IsSliding = false;

@@ -1245,6 +1245,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _speed: 250
+  _collisionHandler: {fileID: 1934643510}
 --- !u!114 &1934643510
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1275,6 +1276,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _speed: 75
+  _collisionHandler: {fileID: 1934643510}
 --- !u!114 &1934643512
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1288,6 +1290,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _force: 10
+  _movement: {fileID: 1934643509}
+  _wallSliding: {fileID: 1934643511}
+  _collisionHandler: {fileID: 1934643510}
 --- !u!114 &1934643513
 MonoBehaviour:
   m_ObjectHideFlags: 0

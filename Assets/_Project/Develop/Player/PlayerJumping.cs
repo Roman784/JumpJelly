@@ -1,15 +1,18 @@
 using UnityEngine;
 
-[RequireComponent(typeof(Player), typeof(Rigidbody2D))]
+[RequireComponent(typeof(Rigidbody2D))]
 public class PlayerJumping : MonoBehaviour
 {
     [SerializeField] private float _force;
 
     private int _jumpCount; // For the double jump.
 
-    private PlayerMovement _movement;
-    private PlayerWallSliding _wallSliding;
-    private CollisionHandler _collisionHandler;
+    [Space]
+
+    [SerializeField] private PlayerMovement _movement;
+    [SerializeField] private PlayerWallSliding _wallSliding;
+    [SerializeField] private CollisionHandler _collisionHandler;
+
     private Rigidbody2D _rigidbody;
 
     private void OnEnable()
@@ -26,9 +29,6 @@ public class PlayerJumping : MonoBehaviour
 
     private void Awake()
     {
-        _movement = GetComponent<Player>().Movement;
-        _wallSliding = GetComponent<Player>().WallSliding;
-        _collisionHandler = GetComponent<Player>().CollisionHandler;
         _rigidbody = GetComponent<Rigidbody2D>();
 
         RestoreJumpCount();
