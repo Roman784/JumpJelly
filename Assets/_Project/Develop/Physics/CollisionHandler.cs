@@ -31,9 +31,24 @@ public class CollisionHandler : MonoBehaviour
         CheckGround();
     }
 
-    public bool IsTouchingWall => GetSurfaceHit(transform.right, _wallCheckDistance);
-    public bool OnGround => GetSurfaceHit(-transform.up, _groundCheckDistance);
+    public bool IsTouchingWall => GetWallHit();
+    public bool OnGround => GetGroundHit();
     public bool IsInAir => !IsTouchingWall && !OnGround;
+
+    public RaycastHit2D GetWallHit()
+    {
+        return GetSurfaceHit(transform.right, _wallCheckDistance);
+    }
+
+    public RaycastHit2D GetGroundHit()
+    {
+        return GetSurfaceHit(-transform.up, _groundCheckDistance);
+    }
+
+    private RaycastHit2D GetSurfaceHit(Vector2 direction, float distance)
+    {
+        return Physics2D.Raycast(transform.position, direction, distance, _surfaceLayer);
+    }
 
     private void CheckWall()
     {
@@ -61,11 +76,6 @@ public class CollisionHandler : MonoBehaviour
             firstTouch = true;
             onExited?.Invoke();
         }
-    }
-
-    private RaycastHit2D GetSurfaceHit(Vector2 direction, float distance)
-    {
-        return Physics2D.Raycast(transform.position, direction, distance, _surfaceLayer);
     }
 
     private void OnDrawGizmos()

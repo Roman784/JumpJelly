@@ -9,7 +9,11 @@ public class PlayerAnimator : MonoBehaviour
     [Space]
 
     [SerializeField] private TrailRenderer _trailRenderer;
-    private float _initialTrailTime; 
+    private float _initialTrailTime;
+
+    [Space]
+
+    [SerializeField] private PlayerEffects _effects;
 
     private Animator _animator;
 
@@ -42,18 +46,28 @@ public class PlayerAnimator : MonoBehaviour
     {
         _animator.SetTrigger("Landing");
         DisableTrail();
+
+        RaycastHit2D hit = _collisionHandler.GetGroundHit();
+        _effects.CreateLandingEffect(hit.point, hit.normal);
     }
 
     private void Jump()
     {
         _animator.SetTrigger("Jump");
         EnableTrail();
+
+        _effects.DisableWallSlidingEffect();
     }
 
     private void WallBump()
     {
         _animator.SetTrigger("WallBump");
         DisableTrail();
+
+        RaycastHit2D hit = _collisionHandler.GetWallHit();
+        _effects.CreateWallBumpEffect(hit.point, hit.normal);
+
+        _effects.EnableWallSlidingEffect();
     }
 
     private void EnableTrail()

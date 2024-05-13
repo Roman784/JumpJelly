@@ -12,6 +12,7 @@ public class PlayerJumping : MonoBehaviour
     [SerializeField] private PlayerMovement _movement;
     [SerializeField] private PlayerWallSliding _wallSliding;
     [SerializeField] private CollisionHandler _collisionHandler;
+    [SerializeField] private PlayerEffects _effects;
 
     private Rigidbody2D _rigidbody;
 
@@ -51,6 +52,8 @@ public class PlayerJumping : MonoBehaviour
         _rigidbody.AddForce(transform.up * _force, ForceMode2D.Impulse);
 
         _jumpCount -= 1;
+
+        _effects.PlayJumpEffect();
     }
 
     private void RestoreJumpCount()
