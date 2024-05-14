@@ -5,6 +5,7 @@ public class PlayerEffects : MonoBehaviour
 {
     [SerializeField] private ParticleSystem _jumpEffect;
     [SerializeField] private ParticleSystem _movementEffect;
+    [SerializeField] private ParticleSystem _flightEffect;
     [SerializeField] private ParticleSystem _wallSliding;
     [SerializeField] private GameObject _landingPrefab;
     [SerializeField] private GameObject _wallBumpPrefab;
@@ -32,6 +33,16 @@ public class PlayerEffects : MonoBehaviour
     public void DisableMovementEffect()
     {
         _movementEffect.Stop();
+    }
+
+    public void EnableFlightEffect()
+    {
+        _flightEffect.Play();
+    }
+
+    public void DisableFlightEffect()
+    {
+        _flightEffect.Stop();
     }
 
     public void EnableWallSlidingEffect()

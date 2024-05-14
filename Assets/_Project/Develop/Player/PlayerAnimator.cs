@@ -52,6 +52,7 @@ public class PlayerAnimator : MonoBehaviour
 
         _effects.EnableMovementEffect();
         _effects.DisableWallSlidingEffect();
+        _effects.DisableFlightEffect();
     }
 
     private void Jump()
@@ -61,6 +62,7 @@ public class PlayerAnimator : MonoBehaviour
 
         _effects.DisableMovementEffect();
         _effects.DisableWallSlidingEffect();
+        _effects.EnableFlightEffect();
     }
 
     private void WallBump()
@@ -72,6 +74,7 @@ public class PlayerAnimator : MonoBehaviour
         _effects.CreateWallBumpEffect(hit.point, hit.normal);
 
         _effects.EnableWallSlidingEffect();
+        _effects.DisableFlightEffect();
     }
 
     private void EnableTrail()
