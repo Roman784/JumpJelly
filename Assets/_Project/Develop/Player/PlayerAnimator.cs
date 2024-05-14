@@ -49,6 +49,9 @@ public class PlayerAnimator : MonoBehaviour
 
         RaycastHit2D hit = _collisionHandler.GetGroundHit();
         _effects.CreateLandingEffect(hit.point, hit.normal);
+
+        _effects.EnableMovementEffect();
+        _effects.DisableWallSlidingEffect();
     }
 
     private void Jump()
@@ -56,6 +59,7 @@ public class PlayerAnimator : MonoBehaviour
         _animator.SetTrigger("Jump");
         EnableTrail();
 
+        _effects.DisableMovementEffect();
         _effects.DisableWallSlidingEffect();
     }
 

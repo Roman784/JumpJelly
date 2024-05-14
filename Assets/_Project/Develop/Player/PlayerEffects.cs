@@ -4,6 +4,7 @@ using UnityEngine.UIElements;
 public class PlayerEffects : MonoBehaviour
 {
     [SerializeField] private ParticleSystem _jumpEffect;
+    [SerializeField] private ParticleSystem _movementEffect;
     [SerializeField] private ParticleSystem _wallSliding;
     [SerializeField] private GameObject _landingPrefab;
     [SerializeField] private GameObject _wallBumpPrefab;
@@ -21,6 +22,16 @@ public class PlayerEffects : MonoBehaviour
     public void PlayJumpEffect()
     {
         _jumpEffect.Play();
+    }
+
+    public void EnableMovementEffect()
+    {
+        _movementEffect.Play();
+    }
+
+    public void DisableMovementEffect()
+    {
+        _movementEffect.Stop();
     }
 
     public void EnableWallSlidingEffect()
