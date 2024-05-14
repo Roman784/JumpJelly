@@ -133,6 +133,7 @@ GameObject:
   m_Component:
   - component: {fileID: 225170661}
   - component: {fileID: 225170662}
+  - component: {fileID: 225170663}
   m_Layer: 0
   m_Name: Right
   m_TagString: Untagged
@@ -208,6 +209,21 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &225170663
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 225170660}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48ac48fa66ee026409ea808a4383b6ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <Sclera>k__BackingField: {fileID: 225170661}
+  <Pupil>k__BackingField: {fileID: 331746084}
+  <PupilDistance>k__BackingField: 0.07
 --- !u!1 &331746083
 GameObject:
   m_ObjectHideFlags: 0
@@ -1615,6 +1631,7 @@ GameObject:
   - component: {fileID: 1934643511}
   - component: {fileID: 1934643512}
   - component: {fileID: 1934643515}
+  - component: {fileID: 1934643517}
   - component: {fileID: 1934643516}
   - component: {fileID: 1934643510}
   m_Layer: 0
@@ -1831,6 +1848,21 @@ MonoBehaviour:
   _wallSliding: {fileID: 2341084095267636735}
   _landingPrefab: {fileID: 1335623203666107441, guid: 7ab47fea25fe5be47b02ab1c517bf487, type: 3}
   _wallBumpPrefab: {fileID: 7640591487270528062, guid: e0786159c9103e64499aa8a6702f1fc9, type: 3}
+--- !u!114 &1934643517
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1934643504}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38da2de663665bc49b61469c7976112f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _eyes:
+  - {fileID: 1986958376}
+  - {fileID: 225170663}
 --- !u!1 &1986958373
 GameObject:
   m_ObjectHideFlags: 0
@@ -1841,6 +1873,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1986958374}
   - component: {fileID: 1986958375}
+  - component: {fileID: 1986958376}
   m_Layer: 0
   m_Name: Left
   m_TagString: Untagged
@@ -1916,6 +1949,21 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1986958376
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1986958373}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48ac48fa66ee026409ea808a4383b6ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <Sclera>k__BackingField: {fileID: 1986958374}
+  <Pupil>k__BackingField: {fileID: 569766330}
+  <PupilDistance>k__BackingField: 0.07
 --- !u!1 &2046337695
 GameObject:
   m_ObjectHideFlags: 0
