@@ -1,54 +1,30 @@
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody2D))]
-public class PlayerWallSliding : MonoBehaviour
+public class PlayerWallSliding
 {
-    [SerializeField] private float _speed;
+    private float _speed;
 
-    [Space]
+    private Rigidbody2D _rigidbody;
 
-    [SerializeField] private CollisionHandler _collisionHandler;
-
-    private Rigidbody2D _rigidbody;    
-
-    private void OnEnable()
+    public PlayerWallSliding(float speed, Rigidbody2D rigidbody)
     {
-        _collisionHandler.OnWallTouched += StartSliding;
-        _collisionHandler.OnWallExited += StopSliding;
-    }
-
-    private void OnDisable()
-    {
-        _collisionHandler.OnWallTouched -= StartSliding;
-        _collisionHandler.OnWallExited -= StopSliding;
-    }
-
-    private void Awake()
-    {
-        _rigidbody = GetComponent<Rigidbody2D>();
+        _speed = speed;
+        _rigidbody = rigidbody;
 
         IsSliding = false;
     }
 
-    private void FixedUpdate()
-    {
-        if (IsSliding)
-            Slide(Time.fixedDeltaTime);
-    }
-
     public bool IsSliding { get; private set; }
 
-    private void Slide(float delta)
+    public void Slide(float delta)
     {
         // Limit the velocity of the fall.
         float y = Mathf.Clamp(_rigidbody.velocity.y, -_speed * delta, float.MaxValue); 
         _rigidbody.velocity = new Vector2(_rigidbody.velocity.x, y);
     }
 
-    private void StartSliding()
+    public void StartSliding()
     {
-        if (_collisionHandler.OnGround) return;
-
         _rigidbody.velocity = Vector2.zero;
         IsSliding = true;
     }

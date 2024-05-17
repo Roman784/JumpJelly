@@ -3,61 +3,55 @@ using UnityEngine.UIElements;
 
 public class PlayerEffects : MonoBehaviour
 {
-    [SerializeField] private ParticleSystem _jumpEffect;
-    [SerializeField] private ParticleSystem _movementEffect;
-    [SerializeField] private ParticleSystem _flightEffect;
+    [SerializeField] private ParticleSystem _jump;
+    [SerializeField] private ParticleSystem _movement;
+    [SerializeField] private ParticleSystem _flight;
     [SerializeField] private ParticleSystem _wallSliding;
-    [SerializeField] private GameObject _landingPrefab;
-    [SerializeField] private GameObject _wallBumpPrefab;
+    [SerializeField] private ParticleSystem _landing;
+    [SerializeField] private ParticleSystem _wallBump;
 
-    public void CreateLandingEffect(Vector2 position, Vector2 normal)
+    public void Landing()
     {
-        CreateEffect(_landingPrefab, position, normal);
+        _landing.Play();
     }
 
-    public void CreateWallBumpEffect(Vector2 position, Vector2 normal)
+    public void WallBump()
     {
-        CreateEffect(_wallBumpPrefab, position, normal);
+        _wallBump.Play();
     }
 
-    public void PlayJumpEffect()
+    public void Jump()
     {
-        _jumpEffect.Play();
+        _jump.Play();
     }
 
-    public void EnableMovementEffect()
+    public void EnableMovement()
     {
-        _movementEffect.Play();
+        _movement.Play();
     }
 
-    public void DisableMovementEffect()
+    public void DisableMovement()
     {
-        _movementEffect.Stop();
+        _movement.Stop();
     }
 
-    public void EnableFlightEffect()
+    public void EnableFlight()
     {
-        _flightEffect.Play();
+        _flight.Play();
     }
 
-    public void DisableFlightEffect()
+    public void DisableFlight()
     {
-        _flightEffect.Stop();
+        _flight.Stop();
     }
 
-    public void EnableWallSlidingEffect()
+    public void EnableWallSliding()
     {
         _wallSliding.Play();
     }
 
-    public void DisableWallSlidingEffect()
+    public void DisableWallSliding()
     {
         _wallSliding.Stop();
-    }
-
-    private void CreateEffect(GameObject effect, Vector2 position, Vector2 normal)
-    {
-        GameObject spawnedEffect = Instantiate(effect, position, Quaternion.identity);
-        spawnedEffect.transform.forward = normal;
     }
 }

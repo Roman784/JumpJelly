@@ -1,121 +1,36 @@
-using System.Collections;
 using UnityEngine;
 
-[RequireComponent(typeof(Animator))]
-public class PlayerAnimator : MonoBehaviour
+public class PlayerAnimator
 {
-    [SerializeField] private CollisionHandler _collisionHandler;
-
-    [Space]
-
-    [SerializeField] private TrailRenderer _trailRenderer;
-    private float _initialTrailTime;
-
-    [Space]
-
-    [SerializeField] private PlayerEffects _effects;
-
     private Animator _animator;
+    private PlayerEffects _effects;
 
-    private void OnEnable()
+    public PlayerAnimator(Animator animator, PlayerEffects effects)
     {
-        _collisionHandler.OnWallTouched += OnWallTouched;
-        _collisionHandler.OnGroundTouched += OnGroundTouched;
-        _collisionHandler.OnWallExited += OnWallExited;
-        _collisionHandler.OnGroundExited += OnGroundExited;
+        _animator = animator;
+        _effects = effects;
     }
 
-    private void OnDisable()
-    {
-        _collisionHandler.OnWallTouched -= OnWallTouched;
-        _collisionHandler.OnGroundTouched -= OnGroundTouched;
-        _collisionHandler.OnWallExited -= OnWallExited;
-        _collisionHandler.OnGroundExited -= OnGroundExited;
-    }
-
-    private void Awake()
-    {
-        _animator = GetComponent<Animator>();
-
-        _initialTrailTime = _trailRenderer.time;
-
-        DisableTrail();
-    }
-
-    private void Landing()
+    public void Landing()
     {
         _animator.SetTrigger("Landing");
-        DisableTrail();
-
-        RaycastHit2D hit = _collisionHandler.GetGroundHit();
-        _effects.CreateLandingEffect(hit.point, hit.normal);
-
-        _effects.EnableMovementEffect();
-        _effects.DisableWallSlidingEffect();
-        _effects.DisableFlightEffect();
+        _effects.Landing();
     }
 
-    private void Jump()
+    public void Jump()
     {
         _animator.SetTrigger("Jump");
-        EnableTrail();
-
-        _effects.DisableMovementEffect();
-        _effects.DisableWallSlidingEffect();
-        _effects.EnableFlightEffect();
+        _effects.Jump();
     }
 
-    private void WallBump()
+    public void WallBump()
     {
         _animator.SetTrigger("WallBump");
-        DisableTrail();
-
-        RaycastHit2D hit = _collisionHandler.GetWallHit();
-        _effects.CreateWallBumpEffect(hit.point, hit.normal);
-
-        _effects.EnableWallSlidingEffect();
-        _effects.DisableFlightEffect();
+        _effects.WallBump();
     }
 
-    private void EnableTrail()
+    public void Flight()
     {
-        _trailRenderer.emitting = true;
-    }
-
-    private void DisableTrail()
-    {
-        _trailRenderer.emitting = false;
-    }
-
-    private void OnGroundTouched()
-    {
-        if (!_collisionHandler.IsTouchingWall)
-        {
-            Landing();
-        }
-    }
-
-    private void OnWallTouched()
-    {
-        if (!_collisionHandler.OnGround)
-        {
-            WallBump();
-        }
-    }
-
-    private void OnGroundExited()
-    {
-        if (!_collisionHandler.IsTouchingWall)
-        {
-            Jump();
-        }
-    }
-
-    private void OnWallExited()
-    {
-        if (!_collisionHandler.OnGround)
-        {
-            Jump();
-        }
+        _animator.SetTrigger("Flight");
     }
 }

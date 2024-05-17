@@ -1,62 +1,33 @@
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody2D))]
-public class PlayerJumping : MonoBehaviour
+public class PlayerJumping
 {
-    [SerializeField] private float _force;
-
+    private float _force;
     private int _jumpCount; // For the double jump.
-
-    [Space]
-
-    [SerializeField] private PlayerMovement _movement;
-    [SerializeField] private PlayerWallSliding _wallSliding;
-    [SerializeField] private CollisionHandler _collisionHandler;
-    [SerializeField] private PlayerEffects _effects;
 
     private Rigidbody2D _rigidbody;
 
-    private void OnEnable()
+    public PlayerJumping(float force, Rigidbody2D rigidbody)
     {
-        _collisionHandler.OnWallTouched += RestoreJumpCount;
-        _collisionHandler.OnGroundTouched += RestoreJumpCount;
-    }
-
-    private void OnDisable()
-    {
-        _collisionHandler.OnWallTouched -= RestoreJumpCount;
-        _collisionHandler.OnGroundTouched -= RestoreJumpCount;
-    }
-
-    private void Awake()
-    {
-        _rigidbody = GetComponent<Rigidbody2D>();
+        _force = force;
+        _rigidbody = rigidbody;
 
         RestoreJumpCount();
     }
 
-    private void Update()
+    public bool Jump()
     {
-        if (Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Space))
-            Jump();
-    }
-
-    private void Jump()
-    {
-        if (_collisionHandler.IsInAir && _jumpCount <= 0) return;
-
-        if (_wallSliding.IsSliding)
-            _movement.TurnAround();
+        if (_jumpCount <= 0) return false;
 
         _rigidbody.velocity = Vector2.zero;
-        _rigidbody.AddForce(transform.up * _force, ForceMode2D.Impulse);
+        _rigidbody.AddForce(Vector2.up * _force, ForceMode2D.Impulse);
 
         _jumpCount -= 1;
 
-        _effects.PlayJumpEffect();
+        return true;
     }
 
-    private void RestoreJumpCount()
+    public void RestoreJumpCount()
     {
         _jumpCount = 2;
     }

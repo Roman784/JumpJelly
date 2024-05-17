@@ -3,8 +3,12 @@ using UnityEngine;
 
 public class CollisionHandler : MonoBehaviour
 {
+    public event Action OnAnySurfaceTouched;
+    public event Action OnAnySurfaceExited;
+
     public event Action OnWallTouched;
     public event Action OnWallExited;
+
     public event Action OnGroundTouched;
     public event Action OnGroundExited;
 
@@ -42,7 +46,7 @@ public class CollisionHandler : MonoBehaviour
 
     public RaycastHit2D GetGroundHit()
     {
-        return GetSurfaceHit(-transform.up, _groundCheckDistance);
+        return GetSurfaceHit(Vector2.down, _groundCheckDistance);
     }
 
     private RaycastHit2D GetSurfaceHit(Vector2 direction, float distance)
@@ -67,14 +71,18 @@ public class CollisionHandler : MonoBehaviour
             if (!firstTouch) return;
 
             firstTouch = false;
+
             onTouched?.Invoke();
+            OnAnySurfaceTouched?.Invoke();
         }
         else
         {
             if (firstTouch) return;
 
             firstTouch = true;
+
             onExited?.Invoke();
+            OnAnySurfaceExited?.Invoke();
         }
     }
 

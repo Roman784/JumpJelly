@@ -1,61 +1,30 @@
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody2D))]
-public class PlayerMovement : MonoBehaviour
+public class PlayerMovement
 {
-    [SerializeField] private float _speed;
+    private float _speed;
 
-    [Space]
-
-    [SerializeField] private CollisionHandler _collisionHandler;
-
+    private Transform _transform;
     private Rigidbody2D _rigidbody;
 
-    private void OnEnable()
+    public PlayerMovement(float speed, Transform transform, Rigidbody2D rigidbody)
     {
-        _collisionHandler.OnWallTouched += OnWallTouched;
-        _collisionHandler.OnGroundTouched += OnGroundTouched;
+        _speed = speed;
+        _transform = transform;
+        _rigidbody = rigidbody;
     }
 
-    private void OnDisable()
+    public void Move(float delta)
     {
-        _collisionHandler.OnWallTouched -= OnWallTouched;
-        _collisionHandler.OnGroundTouched -= OnGroundTouched;
-    }
-
-    private void Awake()
-    {
-        _rigidbody = GetComponent<Rigidbody2D>();
-    }
-
-    private void FixedUpdate()
-    {
-        Move(Time.fixedDeltaTime);
-    }
-
-    private void Move(float delta)
-    {
-        _rigidbody.velocity = new Vector2(transform.right.x * _speed * delta, _rigidbody.velocity.y);
+        _rigidbody.velocity = new Vector2(_transform.right.x * _speed * delta, _rigidbody.velocity.y);
     }
 
     public void TurnAround()
     {
-        Vector3 angles = transform.rotation.eulerAngles;
+        Vector3 angles = _transform.rotation.eulerAngles;
 
         angles.y = angles.y == 0f ? 180f : 0f;
 
-        transform.rotation = Quaternion.Euler(angles);
-    }
-
-    private void OnWallTouched()
-    {
-        if (_collisionHandler.OnGround)
-            TurnAround();
-    }
-
-    private void OnGroundTouched()
-    {
-        if (_collisionHandler.IsTouchingWall)
-            TurnAround();
+        _transform.rotation = Quaternion.Euler(angles);
     }
 }
