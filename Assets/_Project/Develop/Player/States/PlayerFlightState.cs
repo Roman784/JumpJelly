@@ -8,12 +8,13 @@ public class PlayerFlightState : PlayerState
 
     public override void Enter()
     {
-        Player.Animator.Flight();
+        Player.Animator.Flight(true);
         Player.Effects.EnableFlight();
     }
 
     public override void Exit()
     {
+        Player.Animator.Flight(false);
         Player.Effects.DisableFlight();
     }
 

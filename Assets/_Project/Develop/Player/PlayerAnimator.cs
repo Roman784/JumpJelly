@@ -29,8 +29,8 @@ public class PlayerAnimator
         _effects.WallBump();
     }
 
-    public void Flight()
+    public void Flight(bool enabled)
     {
-        _animator.SetTrigger("Flight");
+        _animator.SetBool("Flight", enabled);
     }
 }

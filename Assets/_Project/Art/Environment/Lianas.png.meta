@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 1c55adc2b0b156e4985e3fdcf7f8ba18
+guid: 6f22dad2ad17fcf4c95d845954303bad
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -43,7 +43,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -134,7 +134,91 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: Lianas_0
+      rect:
+        serializedVersion: 2
+        x: 45
+        y: 184
+        width: 231
+        height: 116
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b28b06b25f9cdde49899572fb4f9e63e
+      internalID: -218540140
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lianas_1
+      rect:
+        serializedVersion: 2
+        x: 336
+        y: 100
+        width: 163
+        height: 182
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1b08bddab23cb4e4485c2ce1cf9e0b5d
+      internalID: -2095553298
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lianas_2
+      rect:
+        serializedVersion: 2
+        x: 540
+        y: 102
+        width: 315
+        height: 186
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e7457f795a9ccf94094265d8892a44b9
+      internalID: -1472766573
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lianas_3
+      rect:
+        serializedVersion: 2
+        x: 46
+        y: 51
+        width: 230
+        height: 114
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 955110db0e7ee8847985d164e9ec95a8
+      internalID: -1145869408
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -145,7 +229,11 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Lianas_0: -218540140
+      Lianas_1: -2095553298
+      Lianas_2: -1472766573
+      Lianas_3: -1145869408
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
