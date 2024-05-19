@@ -14,7 +14,7 @@ TagManager:
   - Surface
   - Player
   - InteractiveDecoration
-  - 
+  - Spike
   - 
   - 
   - 
@@ -43,6 +43,9 @@ TagManager:
     locked: 0
   - name: BackgroundDecorations
     uniqueID: 3128909493
+    locked: 0
+  - name: Spikes
+    uniqueID: 989296813
     locked: 0
   - name: Player
     uniqueID: 1830309693
