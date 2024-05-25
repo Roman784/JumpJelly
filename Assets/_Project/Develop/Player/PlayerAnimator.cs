@@ -33,4 +33,9 @@ public class PlayerAnimator
     {
         _animator.SetBool("Flight", enabled);
     }
+
+    public void Destroy()
+    {
+        _animator.SetTrigger("Destroy");
+    }
 }

@@ -12,6 +12,8 @@ public class CollisionHandler : MonoBehaviour
     public event Action OnGroundTouched;
     public event Action OnGroundExited;
 
+    public event Action OnDeadlyObjectTouched;
+
     [SerializeField] private float _wallCheckDistance;
     [SerializeField] private float _groundCheckDistance;
 
@@ -83,6 +85,14 @@ public class CollisionHandler : MonoBehaviour
 
             onExited?.Invoke();
             OnAnySurfaceExited?.Invoke();
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.TryGetComponent<DeadlyObject>(out DeadlyObject deadlyObject))
+        {
+            OnDeadlyObjectTouched?.Invoke();
         }
     }
 

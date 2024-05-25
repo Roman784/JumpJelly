@@ -29,6 +29,8 @@ public class Player : MonoBehaviour
 
         _collisionHandler.OnWallTouched += OnWallTouched;
         _collisionHandler.OnGroundTouched += OnGroundTouched;
+
+        _collisionHandler.OnDeadlyObjectTouched += Destroy;
     }
 
     private void OnDisable()
@@ -38,6 +40,8 @@ public class Player : MonoBehaviour
 
         _collisionHandler.OnWallTouched -= OnWallTouched;
         _collisionHandler.OnGroundTouched -= OnGroundTouched;
+
+        _collisionHandler.OnDeadlyObjectTouched -= Destroy;
     }
 
     private void Awake()
@@ -77,6 +81,16 @@ public class Player : MonoBehaviour
 
         bool res = _jumping.Jump();
         if (res) Animator.Jump();
+    }
+
+    private void Destroy()
+    {
+        _stateHandler.Disable();
+
+        GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
+
+        Animator.Destroy();
+        Effects.Destroy();
     }
 
     private void OnWallTouched()

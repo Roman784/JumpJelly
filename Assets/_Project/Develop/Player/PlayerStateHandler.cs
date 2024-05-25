@@ -6,6 +6,8 @@ public class PlayerStateHandler
     private Dictionary<Type, PlayerState> _statesMap;
     private PlayerState _currentState;
 
+    private bool _canDetermined;
+
     private Player _player;
     private CollisionHandler _collisionHandler;
 
@@ -16,6 +18,8 @@ public class PlayerStateHandler
 
         InitStates();
         DefaultState();
+
+        _canDetermined = true;
     }
 
     private void InitStates()
@@ -58,6 +62,18 @@ public class PlayerStateHandler
             SetState(state);
     }
 
+    public void Enable()
+    {
+        _canDetermined = true;
+        DetermineState();
+    }
+
+    public void Disable()
+    {
+        _canDetermined = false;
+        SetState(null);
+    }
+
     private void DefaultState()
     {
         PlayerState state = GetState<PlayerFlightState>();
@@ -74,6 +90,6 @@ public class PlayerStateHandler
         _currentState?.Exit();
 
         _currentState = state;
-        _currentState.Enter();
+        _currentState?.Enter();
     }
 }

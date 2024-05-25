@@ -9,6 +9,7 @@ public class PlayerEffects : MonoBehaviour
     [SerializeField] private ParticleSystem _wallSliding;
     [SerializeField] private ParticleSystem _landing;
     [SerializeField] private ParticleSystem _wallBump;
+    [SerializeField] private ParticleSystem _destroy;
 
     public void Landing()
     {
@@ -53,5 +54,10 @@ public class PlayerEffects : MonoBehaviour
     public void DisableWallSliding()
     {
         _wallSliding.Stop();
+    }
+
+    public void Destroy()
+    {
+        _destroy.Play();
     }
 }
