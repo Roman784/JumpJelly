@@ -9,6 +9,8 @@ public class PlayerDestroyState : PlayerState
         Player.Controller.Disable();
         Player.Physics.Freeze();
         Player.Animator.Destroy();
+
+        CameraAnimator.Instance.WeakZoom();
     }
 
     public override void Exit()
