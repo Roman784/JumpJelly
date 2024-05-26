@@ -17,6 +17,8 @@ public class Player : MonoBehaviour
     private PlayerJumping _jumping;
     private CollisionHandler _collisionHandler;
 
+    public PlayerController Controller { get; private set; }
+    public PlayerPhysics Physics { get; private set; }
     public PlayerMovement Movement { get; private set; }
     public PlayerWallSliding WallSliding { get; private set; }
     public PlayerAnimator Animator { get; private set; }
@@ -24,24 +26,26 @@ public class Player : MonoBehaviour
 
     private void OnEnable()
     {
+        Controller.OnTouched += Jump;
+
         _collisionHandler.OnAnySurfaceTouched += _stateHandler.DetermineState;
         _collisionHandler.OnAnySurfaceExited += _stateHandler.DetermineState;
+        _collisionHandler.OnDeadlyObjectTouched += _stateHandler.SetDestroyState;
 
         _collisionHandler.OnWallTouched += OnWallTouched;
         _collisionHandler.OnGroundTouched += OnGroundTouched;
-
-        _collisionHandler.OnDeadlyObjectTouched += Destroy;
     }
 
     private void OnDisable()
     {
+        Controller.OnTouched -= Jump;
+
         _collisionHandler.OnAnySurfaceTouched -= _stateHandler.DetermineState;
         _collisionHandler.OnAnySurfaceExited -= _stateHandler.DetermineState;
+        _collisionHandler.OnDeadlyObjectTouched -= _stateHandler.SetDestroyState;
 
         _collisionHandler.OnWallTouched -= OnWallTouched;
         _collisionHandler.OnGroundTouched -= OnGroundTouched;
-
-        _collisionHandler.OnDeadlyObjectTouched -= Destroy;
     }
 
     private void Awake()
@@ -49,6 +53,8 @@ public class Player : MonoBehaviour
         Rigidbody2D rigidbody = GetComponent<Rigidbody2D>();
         Animator animator = GetComponent<Animator>();
 
+        Controller = new PlayerController();
+        Physics = new PlayerPhysics(rigidbody);
         Movement = new PlayerMovement(_moveSpeed, transform, rigidbody);
         WallSliding = new PlayerWallSliding(_wallSlidingSpeed, rigidbody);
         Effects = GetComponent<PlayerEffects>();
@@ -62,10 +68,8 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
+        Controller.CheckTouch();
         _stateHandler?.Update();
-
-        if (Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Space))
-            Jump();
     }
 
     private void FixedUpdate()
@@ -81,16 +85,6 @@ public class Player : MonoBehaviour
 
         bool res = _jumping.Jump();
         if (res) Animator.Jump();
-    }
-
-    private void Destroy()
-    {
-        _stateHandler.Disable();
-
-        GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
-
-        Animator.Destroy();
-        Effects.Destroy();
     }
 
     private void OnWallTouched()

@@ -17,7 +17,7 @@ public class PlayerStateHandler
         _collisionHandler = collisionHandler;
 
         InitStates();
-        DefaultState();
+        SetDefaultState();
 
         _canDetermined = true;
     }
@@ -29,6 +29,7 @@ public class PlayerStateHandler
         _statesMap[typeof(PlayerMovementState)] = new PlayerMovementState(_player);
         _statesMap[typeof(PlayerFlightState)] = new PlayerFlightState(_player);
         _statesMap[typeof(PlayerWallSlidingState)] = new PlayerWallSlidingState(_player);
+        _statesMap[typeof(PlayerDestroyState)] = new PlayerDestroyState(_player);
     }
 
     public void Update()
@@ -43,6 +44,8 @@ public class PlayerStateHandler
 
     public void DetermineState()
     {
+        if (!_canDetermined) return;
+
         PlayerState state = null;
 
         if (_collisionHandler.IsInAir)
@@ -62,19 +65,15 @@ public class PlayerStateHandler
             SetState(state);
     }
 
-    public void Enable()
-    {
-        _canDetermined = true;
-        DetermineState();
-    }
-
-    public void Disable()
+    public void SetDestroyState()
     {
         _canDetermined = false;
-        SetState(null);
+
+        var state = GetState<PlayerDestroyState>();
+        SetState(state);
     }
 
-    private void DefaultState()
+    private void SetDefaultState()
     {
         PlayerState state = GetState<PlayerFlightState>();
         SetState(state);

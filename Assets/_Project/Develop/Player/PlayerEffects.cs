@@ -26,6 +26,11 @@ public class PlayerEffects : MonoBehaviour
         _jump.Play();
     }
 
+    public void Destroy()
+    {
+        _destroy.Play();
+    }
+
     public void EnableMovement()
     {
         _movement.Play();
@@ -54,10 +59,5 @@ public class PlayerEffects : MonoBehaviour
     public void DisableWallSliding()
     {
         _wallSliding.Stop();
-    }
-
-    public void Destroy()
-    {
-        _destroy.Play();
     }
 }

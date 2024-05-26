@@ -37,5 +37,6 @@ public class PlayerAnimator
     public void Destroy()
     {
         _animator.SetTrigger("Destroy");
+        _effects.Destroy();
     }
 }
